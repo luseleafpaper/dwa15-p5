@@ -20,6 +20,10 @@ class Teacher extends Model
         return $this->belongsToMany('App\Students'); 
     } 
 
+    public function lessons() { 
+        return $this->belongsToMany('App\Lesson')->withTimestamps() ; 
+    } 
+
     /* End Relationship Methods */
 
 }

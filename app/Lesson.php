@@ -10,11 +10,11 @@ class Lesson extends Model
     /* Begin Relationship Methods */
     // Many to Many lessons to students 
     public function students() { 
-        $this->belongsToMany('App\Student'); 
+        $this->belongsToMany('App\Student')->withTimestamps() ; 
     }   
 
     public function teachers() { 
-        $this->belongsToMany('App\Teacher'); 
+        $this->belongsToMany('App\Teacher')->withTimestamps(); 
     } 
     /* End Relationship Methods */
 }
