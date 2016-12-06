@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         $users = [
             ['jill@harvard.edu','jill','helloworld'], # <-- Required for P4
             ['jamal@harvard.edu','jamal','helloworld'], # <-- Required for P4
-            ['susanbuck@fas.harvard.edu','susan','helloworld'] # <-- Update with your own info, or remove
+            ['lu.wang@post.harvard.edu','lu','helloworld'] # <-- Update with your own info, or remove
         ];
 
         # Get existing users to prevent duplicates
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             if(!array_key_exists($user[0],$existingUsers)) {
                 $user = User::create([
                     'email' => $user[0],
-                    'name' => $user[1],
+                    'first_name' => $user[1],
                     'password' => Hash::make($user[2]),
                 ]);
             }
