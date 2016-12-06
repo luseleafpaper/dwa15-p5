@@ -9,7 +9,7 @@ class Student extends Model
     /* Begin Relationship Methods */ 
     // One to one between User and Student 
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User')->withTimestamps();
     }
     
     // Many to Many between student and teacher 

@@ -13,11 +13,11 @@ class Teacher extends Model
     /* Begin Relationship Methods */ 
     // One to One between User and Teacher 
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User')->withTimestamps();
     }
     // Many to Many between student and teacher 
     public function students() { 
-        return $this->belongsToMany('App\Students'); 
+        return $this->belongsToMany('App\Student')->withTimestamps(); 
     } 
 
     public function lessons() { 
