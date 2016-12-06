@@ -14,6 +14,13 @@ class CreateLessonsTable extends Migration
     public function up()
     {
         //
+        Schema::create('lessons', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->integer('duration')->unsigned();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateLessonsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('lessons'); 
     }
 }
