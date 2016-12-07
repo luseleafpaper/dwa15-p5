@@ -10,11 +10,39 @@ use Carbon;
 use DB;
 use App\Book;
 use App\Author;
+use App\Lesson;
+use App\Student;
+use App\Teacher; 
+use App\User;
 
 # Access via /practice/#
 
 class PracticeController extends Controller
 {
+
+    /**
+    *
+    */
+    public function example22() {
+        dump("practice controller example21");
+        $lessons = Teacher::all();
+        foreach($lessons as $lesson) {
+            dump($lesson->user->toArray() );
+        }
+    }
+
+
+    /**
+    *
+    */
+    public function example21() {
+        dump("practice controller example21");
+        $lessons = Lesson::with('students')->get(); 
+        foreach($lessons as $lesson) { 
+            dump($lesson->students->toArray() ); 
+        } 
+    }
+
 
     /**
     *
