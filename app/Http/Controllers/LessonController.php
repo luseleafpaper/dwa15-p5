@@ -50,7 +50,7 @@ class LessonController extends Controller
     */
     public function store(Request $request)
     { 
-        dump("You found the store endpoint for new lesson");
+        dump("You've stored a lesson that you just created");
         // Validate 
         $this->validate($request, [
             'start_time' => 'required', 
@@ -78,6 +78,10 @@ class LessonController extends Controller
         $students = ($request->students) ?: []; 
         $lesson->students()->sync($students); 
         $lesson->save(); 
+
+        # Finish
+        Session::flash('flash_message', 'You created a lesson.');
+        return redirect('/lessons');
     } 
 
 
@@ -119,9 +123,9 @@ class LessonController extends Controller
     */
     public function delete($id) {
         dump("You found the delete endpoint for lesson id ".$id);
-        //$book = Book::find($id);
+        $lesson = Lesson::find($id);
 
-        //return view('book.delete')->with('book', $book);
+        return view('lesson.delete')->with('lesson', $lesson);
     }
 
     /**
@@ -129,10 +133,30 @@ class LessonController extends Controller
     * Process form to actually destroy  
     */
     public function destroy($id) {
-        dump(" Endpoint to actually delete lesson id ".$id);
-        //$book = Book::find($id);
+        # Get the lesson to be deleted
+        $lesson = Lesson::find($id);
 
-        //return view('book.delete')->with('book', $book);
+        if(is_null($lesson)) {
+            Session::flash('message','Lesson not found.');
+            return redirect('/lessons');
+        }
+
+        # First remove any tags associated with this lesson
+        if($lesson->students()) {
+            $lesson->students()->detach();
+        }
+
+        # First remove any tags associated with this lesson
+        if($lesson->teachers()) {
+            $lesson->teachers()->detach();
+        }
+
+        # Then delete the lesson
+        $lesson->delete();
+
+        # Finish
+        Session::flash('flash_message', 'Lesson starting at '.$lesson->start_time.' was deleted.');
+        return redirect('/lessons');
     }
 
         

@@ -1,19 +1,22 @@
 @extends('layouts.master')
 
 @section('title')
-    Confirm deletion: {{ $book->title }}
+    Confirm Lesson Deletion
 @endsection
 
 @section('content')
 
     <h1>Confirm deletion</h1>
-    <form method='POST' action='/books/{{ $book->id }}'>
+    <form method='POST' action='/lessons/{{ $lesson->id }}'>
 
         {{ method_field('DELETE') }}
 
         {{ csrf_field() }}
 
-        <h2>Are you sure you want to delete <em>{{ $book->title }}</em>?</h2>
+        <h2>Are you sure you want to delete the lesson starting at 
+            <em>{{ $lesson->start_time }}</em>
+            and ending at <em>{{ $lesson->end_time }}</em>?
+        </h2>
 
         <input type='submit' value='Yes'>
         
