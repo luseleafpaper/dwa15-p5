@@ -20,11 +20,9 @@ class LessonController extends Controller
         $teacher = $user->teacher()->first();
 
         if($teacher) { 
-            dump($user->first_name." is a teacher");
-            dump($teacher->toArray() ); 
-            dump("... who teaches..."); 
-            $students = $teacher->students()->get(); 
-            dump($students);
+            dump($user->first_name." is teaching the following lessons");
+            $lessons = $teacher->lessons()->get(); 
+            dump($lessons);
         } else { 
             dump("Not a teacher");
         }     
@@ -32,11 +30,9 @@ class LessonController extends Controller
         $student = $user->student()->first();
         
         if($student) {
-            dump($user->first_name." is a student"); 
-            dump($student->toArray() ); 
-            dump("... who studies with..."); 
-            $teachers = $student->teachers()->get();
-            dump($teachers); 
+            dump($user->first_name." is a student in the following lessons"); 
+            $lessons = $student->lessons()->get(); 
+            dump($lessons);
         } else { 
             dump("Not a student");
         }     
