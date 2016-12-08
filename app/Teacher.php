@@ -17,7 +17,7 @@ class Teacher extends Model
     }
     // Many to Many between student and teacher 
     public function students() { 
-        return $this->belongsToMany('App\Student')->withTimestamps(); 
+        return $this->belongsToMany('App\Student'); 
     } 
 
     public function lessons() { 

@@ -9,6 +9,7 @@ use Auth;
 use Session;
 use App\Teacher;
 use App\Student;
+use App\Lesson;
 
 
 class LessonController extends Controller
@@ -47,16 +48,36 @@ class LessonController extends Controller
     /** 
     * POST
     */
-    public function store()
+    public function store(Request $request)
     { 
-        dump("You found the store endpoint for lesson id ".$id);
+        dump("You found the store endpoint for new lesson");
         // Validate 
+        $this->validate($request, [
+            'start_time' => 'required', 
+            'end_time' => 'required', 
+        ]); 
 
         // Create a new Lesson
+        $lesson = new Lesson(); 
         // Assign all attributes of the lesson from the form elements 
+        $start_time = $request->input('start_time');
+        $end_time = $request->input('end_time');
+        $lesson->start_time = $start_time; 
+        $lesson->end_time = $end_time; 
+        $lesson->duration = (int)((strtotime($end_time)-strtotime($start_time))/60); 
         // Save the Lesson 
-        // Get associated Students for lesson 
-        // Save all associated Students 
+        $lesson->save(); 
+
+        // Save associated teacher for lesson 
+        $user = Auth::user(); 
+        $teacher = $user->teacher()->get();
+        $lesson->teachers()->sync($teacher); 
+        $lesson->save(); 
+
+        // Save associated Students for lesson 
+        $students = ($request->students) ?: []; 
+        $lesson->students()->sync($students); 
+        $lesson->save(); 
     } 
 
 
@@ -70,22 +91,26 @@ class LessonController extends Controller
         
         // Are you a teacher? If not, redirect with flash message 
         $teacher = $user->teacher()->first();
-
-        if($teacher) {
-            // If you ARE a teacher, create a lesson with [or without ] a student. 
-            // With student means the student will see this lesson 
-            // Without means the lesson is an available block time 
-            $students_for_dropdown = ['Jill', 'Lu', 'Jamal'];
-            return view('lesson.create')->with([
-                'students_for_dropdown' => $students_for_dropdown,
-            ]); 
-        } 
-        else
+        
+        if(!($teacher)) 
         { 
             return view('help')->with([
-                'message' => 'You need to be a teacher to create lessons',
-            ]); 
+                'message' => 'Sorry, you need to be a teacher to create lessons',
+            ]);
         } 
+
+        // If you ARE a teacher, create a lesson with [or without ] a student. 
+        // Get teacher's students
+        $students = $teacher->students()->get(); 
+        $students_for_dropdown = []; 
+        foreach($students as $student)
+        { 
+            $students_for_dropdown[$student->id] = $student->user()->pluck('first_name')[0]; 
+        } 
+        // return student list to the view
+        return view('lesson.create')->with([
+            'students_for_dropdown' => $students_for_dropdown,
+        ]); 
     } 
 
     /**

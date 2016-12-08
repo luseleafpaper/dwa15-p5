@@ -3,5 +3,5 @@
 @section('title', 'Welcome to Foobooks')
 
 @section('content')
-    {{ message }}  
+    {{ $message }}  
 @endsection
