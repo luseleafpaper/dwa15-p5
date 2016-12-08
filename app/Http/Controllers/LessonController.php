@@ -13,6 +13,11 @@ use App\Student;
 
 class LessonController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request) 
     { 
         $user = Auth::user(); 
@@ -38,16 +43,13 @@ class LessonController extends Controller
         }     
         
     } 
-    
-    public function create()
-    {
-        // For now, only teachers can create lessons 
-        // Get relevant student information for this teacher 
-        // Send student information to view 
-    } 
 
+    /** 
+    * POST
+    */
     public function store()
     { 
+        dump("You found the store endpoint for lesson id ".$id);
         // Validate 
 
         // Create a new Lesson
@@ -56,4 +58,91 @@ class LessonController extends Controller
         // Get associated Students for lesson 
         // Save all associated Students 
     } 
+
+
+    /**
+    * GET 
+    */ 
+    public function create()
+    {
+        dump("You found the create endpoint for a new lesson ");
+        $user = Auth::user(); 
+        
+        // Are you a teacher? If not, redirect with flash message 
+        $teacher = $user->teacher()->first();
+
+        if($teacher) {
+            // If you ARE a teacher, create a lesson with [or without ] a student. 
+            // With student means the student will see this lesson 
+            // Without means the lesson is an available block time 
+            $students_for_dropdown = ['Jill', 'Lu', 'Jamal'];
+            return view('lesson.create')->with([
+                'students_for_dropdown' => $students_for_dropdown,
+            ]); 
+        } 
+        else
+        { 
+            return view('help')->with([
+                'message' => 'You need to be a teacher to create lessons',
+            ]); 
+        } 
+    } 
+
+    /**
+    * GET
+    * Page to confirm deletion
+    */
+    public function delete($id) {
+        dump("You found the delete endpoint for lesson id ".$id);
+        //$book = Book::find($id);
+
+        //return view('book.delete')->with('book', $book);
+    }
+
+    /**
+    * POST / DELETE 
+    * Process form to actually destroy  
+    */
+    public function destroy($id) {
+        dump(" Endpoint to actually delete lesson id ".$id);
+        //$book = Book::find($id);
+
+        //return view('book.delete')->with('book', $book);
+    }
+
+        
+    /**
+    * GET
+    */
+    public function show($id) 
+    {
+        dump("You found the show endpoint for lesson id ".$id);
+        //$book = Book::find($id);
+
+        //return view('book.delete')->with('book', $book);
+    }
+
+    
+    /**
+    * POST / PUT 
+    * Process form to edit 
+    */
+    public function update($id) {
+        dump("You found the delete endpoint for lesson id ".$id);
+        //$book = Book::find($id);
+
+        //return view('book.delete')->with('book', $book);
+    }
+    /**
+    * GET
+    * Show form to edit 
+    */
+    public function edit($id) {
+        dump("You found the delete endpoint for lesson id ".$id);
+        //$book = Book::find($id);
+
+        //return view('book.delete')->with('book', $book);
+    }
+
+
 }
