@@ -17,33 +17,7 @@ Route::get('/show-login-status', function() {
 /**
 * Lesson resource
 */
-# Index page to show all the lessons
-Route::get('/lessons', 'LessonController@index')->name('lessons.index')->middleware('auth');
-
-# Show a form to create a new lesson
-Route::get('/lessons/create', 'LessonController@create')->name('lessons.create')->middleware('auth');
-
-# Process the form to create a new lesson
-Route::post('/lessons', 'LessonController@store')->name('lessons.store');
-
-# Show an individual lesson
-Route::get('/lessons/{title}', 'LessonController@show')->name('lessons.show');
-
-# Show form to edit a lesson
-Route::get('/lessons/{id}/edit', 'LessonController@edit')->name('lessons.edit');
-
-# Process form to edit a lesson
-Route::put('/lessons/{id}', 'LessonController@update')->name('lessons.update');
-
-# Get route to confirm deletion of lesson
-Route::get('/lessons/{id}/delete', 'LessonController@delete')->name('lessons.destroy');
-
-# Delete route to actually destroy the lesson
-Route::delete('/lessons/{id}', 'LessonController@destroy')->name('lessons.destroy');
-
-# The above routes *could* all be replaced with this one line:
-# Route::resource('lessons', 'LessonController');
-
+Route::resource('lessons', 'LessonController');
 Route::resource('teacher', 'TeacherController'); 
 Route::resource('student', 'StudentController'); 
 
@@ -68,11 +42,12 @@ Route::get('/contact', 'ContactController')->name('contact');
 * A quick and dirty way to set up a whole bunch of practice routes
 * that I'll use in lecture.
 */
+/*
 Route::get('/practice', 'PracticeController@index')->name('practice.index');
 for($i = 0; $i < 100; $i++) {
     Route::get('/practice/'.$i, 'PracticeController@example'.$i)->name('practice.example'.$i);
 }
-
+*/
 
 /**
 * View logs, only accessible locally
