@@ -214,11 +214,34 @@ class LessonController extends Controller
     * POST / PUT 
     * Process form to edit 
     */
-    public function update($id) {
-        dump("You found the update endpoint for lesson id ".$id);
-        //$book = Book::find($id);
+    public function update(Request $request, $id) {
+        // Validate 
+        $this->validate($request, [
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
 
-        //return view('book.delete')->with('book', $book);
+        // Find 
+        $lesson = Lesson::find($id);
+        //$lesson = Lesson::find($request->id);
+        // Assign all attributes of the lesson from the form elements 
+        $start_time = $request->input('start_time');
+        $end_time = $request->input('end_time');
+        $lesson->start_time = $start_time;
+        $lesson->end_time = $end_time;
+        $lesson->duration = (int)((strtotime($end_time)-strtotime($start_time))/60);
+        // Save the Lesson 
+        $lesson->save();
+
+        // Save associated Students for lesson 
+        $students = ($request->students) ?: [];
+        $lesson->students()->sync($students);
+        $lesson->save();
+
+        # Finish
+        Session::flash('flash_message', 'You created a lesson.');
+        return redirect('/lessons');
+
     }
     /**
     * GET

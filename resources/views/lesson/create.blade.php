@@ -37,7 +37,7 @@
 
          <div class='form-group'>
             <label>Students</label>        
-                @foreach( $students_for_dropdown as $student_id => $student_name ) 
+                @foreach( $students_for_checkboxes as $student_id => $student_name ) 
                     <input type='checkbox' value='{{ $student_id }}'
                              name='students[]'> {{ $student_name }} <br>
                 @endforeach 

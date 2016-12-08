@@ -6,9 +6,12 @@
 
 @section('content')
 
-    <h1>Add a new lesson</h1>
+    <h1>Edit {{ $lesson->id }} </h1>
 
-    <form method='POST' action='/lessons'>
+    <form method='POST' action='/lessons/{{ $lesson->id }}'>
+
+        {{ method_field('PUT') }}
+
 
         {{ csrf_field() }}
         
