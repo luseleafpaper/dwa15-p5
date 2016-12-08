@@ -1,99 +1,62 @@
 @extends('layouts.master')
 
 @section('title')
-    Edit {{ $book->title }}
+    Add a new book
 @stop
 
 @section('content')
 
-    <h1>Edit {{ $book->title }} </h1>
+    <h1>Add a new lesson</h1>
 
-    <form method='POST' action='/books/{{ $book->id }}'>
-
-        {{ method_field('PUT') }}
+    <form method='POST' action='/lessons'>
 
         {{ csrf_field() }}
-
-        <input name='id' value='{{$book->id}}' type='hidden'>
-
+        
         <div class='form-group'>
-            <label>Title:</label>
+           <label>Start Time</label>
             <input
-            type='text'
-            id='title'
-            name='title'
-            value='{{ old('title', $book->title) }}'
+                type='text'
+                id='start_time'
+                name='start_time'
+                value='{{ old('start_time', $lesson->start_time) }}'
             >
-            <div class='error'>{{ $errors->first('title') }}</div>
+           <div class='error'>{{ $errors->first('start_time') }}</div>
         </div>
 
-
         <div class='form-group'>
-            <label>Published Year (YYYY):</label>
+           <label>End Time</label>
             <input
-            type='text'
-            id='published'
-            name='published'
-            value='{{ old('published' , $book->published) }}'
+                type='text'
+                id='end_time'
+                name='end_time'
+                value='{{ old('start_time', $lesson->end_time) }}'
             >
-            <div class='error'>{{ $errors->first('published') }}</div>
-        </div>
-
-        <div class='form-group'>
-            <label>URL of cover image:</label>
-            <input
-            type='text'
-            id='cover'
-            name='cover'
-            value='{{ old('cover', $book->cover) }}'
-            >
-            <div class='error'>{{ $errors->first('cover') }}</div>
-        </div>
-
-        <div class='form-group'>
-            <label>URL to purchase this book:</label>
-            <input
-            type='text'
-            id='purchase_link'
-            name='purchase_link'
-            value='{{ old('purchase_link', $book->purchase_link) }}'
-            >
-            <div class='error'>{{ $errors->first('purchase_link') }}</div>
+           <div class='error'>{{ $errors->first('end_time') }}</div>
         </div>
 
 
-        <div class='form-group'>
-            <label>Author</label>
-            <select name='author_id'>
-                @foreach($authors_for_dropdown as $author_id => $author)
-                    <option
-                    {{ ($author_id == $book->author->id) ? 'SELECTED' : '' }}
-                    value='{{ $author_id }}'
-                    >{{ $author }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class='form-group'>
-            <label>Tags</label>
-            @foreach($tags_for_checkboxes as $tag_id => $tag_name)
+         <div class='form-group'>
+            <label>Students</label>
+            @foreach($students_for_checkboxes as $student_id => $student_name)
                 <input
                 type='checkbox'
-                value='{{ $tag_id }}'
-                name='tags[]'
-                {{ (in_array($tag_name, $tags_for_this_book)) ? 'CHECKED' : '' }}
+                value='{{ $student_id }}'
+                name='students[]'
+                {{ (in_array($student_name, $students_for_this_lesson)) ? 'CHECKED' : '' }}
                 >
-                {{ $tag_name }} <br>
+                {{ $student_name }} <br>
             @endforeach
         </div>
 
+        <button type="submit" class="btn btn-primary">Add book</button>
 
-        <div class='form-instructions'>
-            All fields are required
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save changes</button>
-
+        {{--
+        <ul class=''>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        --}}
 
         <div class='error'>
             @if(count($errors) > 0)

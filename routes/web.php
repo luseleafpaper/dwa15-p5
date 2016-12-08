@@ -15,12 +15,17 @@ Route::get('/show-login-status', function() {
 
 
 /**
-* Student, Teacher, and Lesson resources
+* Student, Teacher, and Lesson standard resources
 */
 Route::resource('lessons', 'LessonController');
 Route::resource('teacher', 'TeacherController'); 
 Route::resource('student', 'StudentController'); 
 
+/**
+* Student, Teacher and Lesson non-standard routes 
+*/
+
+Route::get('lessons/{id}/delete', 'LessonController@delete'); 
 
 /**
 * Misc Pages

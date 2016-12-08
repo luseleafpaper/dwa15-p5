@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ $book->title }}
+    Lesson {{ $lesson->id}}  
 @endsection
 
 @section('head')
@@ -10,22 +10,18 @@
 
 @section('content')
 
-    <h1 class='truncate'>{{ $book->title }}</h1>
+    <h1 class='truncate'>Lesson Details</h1>
 
-    <h2 class='truncate'>{{ $book->author->first_name }} {{ $book->author->last_name }}</h2>
-
-    <img class='cover' src='{{ $book->cover }}' alt='Cover for {{$book->title}}'>
-
-    <div class='tags'>
-        @foreach($book->tags as $tag)
-            <div class='tag'>{{ $tag->name }}</div>
+    <h2 class='truncate'>Lesson ID</h2>
+    <h2 class='truncate'>Start time</h2>
+    <h2 class='truncate'>End time</h2>
+    <h2 class='truncate'>Taught by</h2>
+        @foreach($teachers as $teacher)
+            {{ $teacher }}<br>
         @endforeach
-    </div>
-
-    <a class='button' href='/books/{{ $book->id }}/edit'><i class='fa fa-pencil'></i> Edit</a>
-    <a class='button' href='/books/{{ $book->id }}/delete'><i class='fa fa-trash'></i> Delete</a>
-
-    <br><br>
-    <a class='return' href='/books'>&larr; Return to all books</a>
+    <h2 class='truncate'>Attended by</h2>
+        @foreach($students as $student)
+            {{ $student }} <br> 
+        @endforeach
 
 @endsection
