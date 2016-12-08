@@ -106,14 +106,14 @@ class LessonController extends Controller
         // If you ARE a teacher, create a lesson with [or without ] a student. 
         // Get teacher's students
         $students = $teacher->students()->get(); 
-        $students_for_dropdown = []; 
+        $students_for_checkboxes = []; 
         foreach($students as $student)
         { 
-            $students_for_dropdown[$student->id] = $student->user()->pluck('first_name')[0]; 
+            $students_for_checkboxes[$student->id] = $student->user()->pluck('first_name')[0]; 
         } 
         // return student list to the view
         return view('lesson.create')->with([
-            'students_for_dropdown' => $students_for_dropdown,
+            'students_for_checkboxes' => $students_for_checkboxes,
         ]); 
     } 
 
@@ -165,10 +165,48 @@ class LessonController extends Controller
     */
     public function show($id) 
     {
-        dump("You found the show endpoint for lesson id ".$id);
-        //$book = Book::find($id);
+        $user = Auth::user();
+        $teacher = $user->teacher()->first(); 
+        $lessons = $teacher->lessons()->get(); 
+        $lesson = Lesson::find($id);
+        
+        if(!$lesson) { 
+            return view('help')->with([
+                'message' => 'Sorry, lesson id '.$id." doesn't exist",
+            ]);
+        } 
+        if(!$lessons->contains($lesson)) { 
+            return view('help')->with([
+                'message' => 'Sorry, you do not have access to lesson id '.$id,
+            ]);
+        } 
 
-        //return view('book.delete')->with('book', $book);
+        if(is_null($lesson)) {
+            Session::flash('message','Lesson not found');
+            return redirect('/lessons');
+        }
+        
+        $students = $lesson->students()->get(); 
+        $student_names = []; 
+        foreach($students as $student) {  
+            $first = $student->user()->pluck('first_name')[0];  
+            $last = $student->user()->pluck('last_name')[0];  
+            $student_names[] = $first.' '.$last; 
+        } 
+
+        $teachers = $lesson->teachers()->get();
+        $teacher_names = []; 
+        foreach($teachers as $teacher) { 
+            $first = $teacher->user()->pluck('first_name')[0];
+            $last = $teacher->user()->pluck('last_name')[0];
+            $teacher_names[] = $first.' '.$last;
+        }
+
+        return view('lesson.show')->with([
+            'lesson' => $lesson,
+            'students' => $student_names, 
+            'teachers' => $teacher_names, 
+        ]);
     }
 
     
@@ -177,7 +215,7 @@ class LessonController extends Controller
     * Process form to edit 
     */
     public function update($id) {
-        dump("You found the delete endpoint for lesson id ".$id);
+        dump("You found the update endpoint for lesson id ".$id);
         //$book = Book::find($id);
 
         //return view('book.delete')->with('book', $book);
@@ -187,11 +225,41 @@ class LessonController extends Controller
     * Show form to edit 
     */
     public function edit($id) {
-        dump("You found the delete endpoint for lesson id ".$id);
-        //$book = Book::find($id);
+        dump("You found the edit endpoint for lesson id ".$id);
+        $user = Auth::user();
+        $teacher = $user->teacher()->first();
+        $lessons = $teacher->lessons()->get();
+        $lesson = Lesson::find($id);
 
-        //return view('book.delete')->with('book', $book);
+        if(!$lesson) {
+            return view('help')->with([
+                'message' => 'Sorry, lesson id '.$id." doesn't exist",
+            ]);
+        }
+        if(!$lessons->contains($lesson)) {
+            return view('help')->with([
+                'message' => 'Sorry, you do not have access to lesson id '.$id,
+            ]);
+        }
+
+        
+        
+        $students = $teacher->students()->get();
+        $students_for_checkboxes = [];
+        foreach($students as $student)
+        {
+            $students_for_checkboxes[$student->id] = $student->user()->pluck('first_name')[0];
+        }
+
+        $students_for_this_lesson = []; 
+        $lesson_students = $lesson->students()->get(); 
+        foreach($lesson_students as $lesson_student){ 
+            $students_for_this_lesson[]=$lesson_student->user()->pluck('first_name')[0]; 
+        } 
+        return view('lesson.edit')->with([
+            'lesson'=>$lesson,
+            'students_for_this_lesson'=>$students_for_this_lesson, 
+            'students_for_checkboxes'=>$students_for_checkboxes,
+        ]); 
     }
-
-
 }
