@@ -44,7 +44,8 @@ Route::delete('/lessons/{id}', 'LessonController@destroy')->name('lessons.destro
 # The above routes *could* all be replaced with this one line:
 # Route::resource('lessons', 'LessonController');
 
-
+Route::resource('teacher', 'TeacherController'); 
+Route::resource('student', 'StudentController'); 
 
 
 /**
