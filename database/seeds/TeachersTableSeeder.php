@@ -13,7 +13,7 @@ class TeachersTableSeeder extends Seeder
      */
     public function run()
     {
-        $teacherEmails = ['lu.wang@post.harvard.edu', 'jill@harvard.edu']; 
+        $teacherEmails = ['jill@harvard.edu', 'lu.wang@post.harvard.edu']; 
         
         $existingTeachers = Teacher::all()->keyBy('user_id')->toArray(); 
         

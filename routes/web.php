@@ -15,34 +15,36 @@ Route::get('/show-login-status', function() {
 
 
 /**
-* Book resource
+* Lesson resource
 */
-# Index page to show all the books
-Route::get('/books', 'BookController@index')->name('books.index')->middleware('auth');
+# Index page to show all the lessons
+Route::get('/lessons', 'LessonController@index')->name('lessons.index')->middleware('auth');
 
-# Show a form to create a new book
-Route::get('/books/create', 'BookController@create')->name('books.create')->middleware('auth');
+# Show a form to create a new lesson
+Route::get('/lessons/create', 'LessonController@create')->name('lessons.create')->middleware('auth');
 
-# Process the form to create a new book
-Route::post('/books', 'BookController@store')->name('books.store');
+# Process the form to create a new lesson
+Route::post('/lessons', 'LessonController@store')->name('lessons.store');
 
-# Show an individual book
-Route::get('/books/{title}', 'BookController@show')->name('books.show');
+# Show an individual lesson
+Route::get('/lessons/{title}', 'LessonController@show')->name('lessons.show');
 
-# Show form to edit a book
-Route::get('/books/{id}/edit', 'BookController@edit')->name('books.edit');
+# Show form to edit a lesson
+Route::get('/lessons/{id}/edit', 'LessonController@edit')->name('lessons.edit');
 
-# Process form to edit a book
-Route::put('/books/{id}', 'BookController@update')->name('books.update');
+# Process form to edit a lesson
+Route::put('/lessons/{id}', 'LessonController@update')->name('lessons.update');
 
-# Get route to confirm deletion of book
-Route::get('/books/{id}/delete', 'BookController@delete')->name('books.destroy');
+# Get route to confirm deletion of lesson
+Route::get('/lessons/{id}/delete', 'LessonController@delete')->name('lessons.destroy');
 
-# Delete route to actually destroy the book
-Route::delete('/books/{id}', 'BookController@destroy')->name('books.destroy');
+# Delete route to actually destroy the lesson
+Route::delete('/lessons/{id}', 'LessonController@destroy')->name('lessons.destroy');
 
 # The above routes *could* all be replaced with this one line:
-# Route::resource('books', 'BookController');
+# Route::resource('lessons', 'LessonController');
+
+
 
 
 /**
@@ -149,4 +151,4 @@ Route::get('/', 'PageController@welcome');
 Auth::routes();
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
-#Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index');

@@ -13,7 +13,7 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $studentEmails = ['jamal@harvard.edu', 'jill@harvard.edu']; 
+        $studentEmails = ['jill@harvard.edu', 'jamal@harvard.edu']; 
         
         $existingStudents = Student::all()->keyBy('user_id')->toArray(); 
         

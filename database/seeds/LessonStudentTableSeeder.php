@@ -16,7 +16,7 @@ class LessonStudentTableSeeder extends Seeder
         //
         $studentLessons = [
             // Lu is teacher lessons 1 and 2, Jill is teacher lessons 1 and 3
-            '1' => ['1', '2', '3'], // Jamal will attend Lu and Jill's lessons
+            '1' => ['1', '3'], // Jamal will attend Lu's lessons
             '2' => ['2'], // Jill will attend Lu's lessons
         ];
 

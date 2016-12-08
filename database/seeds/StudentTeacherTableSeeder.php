@@ -15,8 +15,8 @@ class StudentTeacherTableSeeder extends Seeder
     {
         //
         $teacherStudents = [
-            '1' => ['1', '2'], // Lu's students are Jamal and Jill 
-            '2' => ['2'], // Jill's students are Jamal
+            '1' => ['2'], // Jill's students are Jamal 
+            '2' => ['1', '2'], // Lu's students are Jill and Jamal
         ];
 
         foreach($teacherStudents as $teacherId=> $studentIds) {
