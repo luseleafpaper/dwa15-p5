@@ -38,4 +38,22 @@ class LessonController extends Controller
         }     
         
     } 
+    
+    public function create()
+    {
+        // For now, only teachers can create lessons 
+        // Get relevant student information for this teacher 
+        // Send student information to view 
+    } 
+
+    public function store()
+    { 
+        // Validate 
+
+        // Create a new Lesson
+        // Assign all attributes of the lesson from the form elements 
+        // Save the Lesson 
+        // Get associated Students for lesson 
+        // Save all associated Students 
+    } 
 }

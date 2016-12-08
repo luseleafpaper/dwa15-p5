@@ -15,7 +15,7 @@ Route::get('/show-login-status', function() {
 
 
 /**
-* Lesson resource
+* Student, Teacher, and Lesson resources
 */
 Route::resource('lessons', 'LessonController');
 Route::resource('teacher', 'TeacherController'); 
