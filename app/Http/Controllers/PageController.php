@@ -13,7 +13,7 @@ class PageController extends Controller
     public function welcome(Request $request) {
 
         if($request->user()) {
-            return redirect('/books');
+            return redirect('/lessons');
         }
 
         return view('welcome');
