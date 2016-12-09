@@ -22,26 +22,19 @@ class LessonController extends Controller
     public function index(Request $request) 
     { 
         $user = Auth::user(); 
-        dump("Lesson index: user, teacher, and student info");
         $teacher = $user->teacher()->first();
 
         if($teacher) { 
-            dump($user->first_name." is teaching the following lessons");
             $teacher_lessons = $teacher->lessons()->with('students')->orderBy('start_time')->get(); 
-            dump($teacher_lessons);
         } else { 
-            dump("Not a teacher");
             $teacher_lessons = []; 
         }     
         
         $student = $user->student()->first();
         
         if($student) {
-            dump($user->first_name." is a student in the following lessons"); 
             $student_lessons = $student->lessons()->get(); 
-            dump($student_lessons);
         } else { 
-            dump("Not a student");
             $student_lessons = []; 
         }     
         
@@ -59,7 +52,6 @@ class LessonController extends Controller
     */
     public function store(Request $request)
     { 
-        dump("You've stored a lesson that you just created");
         // Validate 
         $this->validate($request, [
             'start_time' => 'required', 
@@ -68,12 +60,12 @@ class LessonController extends Controller
 
         // Create a new Lesson
         $lesson = new Lesson(); 
+
         // Assign all attributes of the lesson from the form elements 
-        $start_time = $request->input('start_time');
-        $end_time = $request->input('end_time');
-        $lesson->start_time = $start_time; 
-        $lesson->end_time = $end_time; 
-        $lesson->duration = (int)((strtotime($end_time)-strtotime($start_time))/60); 
+        $lesson->title = $request->input('title'); 
+        $lesson->start_time = $request->input('start_time');
+        $lesson->end_time = $request->input('end_time');
+        $lesson->duration = (int)((strtotime($lesson->end_time)-strtotime($lesson->start_time))/60); 
         // Save the Lesson 
         $lesson->save(); 
 
@@ -88,6 +80,11 @@ class LessonController extends Controller
         $lesson->students()->sync($students); 
         $lesson->save(); 
 
+        // Save associated teachers for lesson 
+        $teachers = ($request->teachers) ?: []; 
+        $lesson->teachers()->sync($teachers); 
+        $lesson->save(); 
+
         # Finish
         Session::flash('flash_message', 'You created a lesson.');
         return redirect('/lessons');
@@ -99,7 +96,6 @@ class LessonController extends Controller
     */ 
     public function create()
     {
-        dump("You found the create endpoint for a new lesson ");
         $user = Auth::user(); 
         
         // Are you a teacher? If not, redirect with flash message 
@@ -121,8 +117,13 @@ class LessonController extends Controller
             $students_for_checkboxes[$student->id] = $student->user()->pluck('first_name')[0]; 
         } 
         // return student list to the view
+
+        $teachers_for_checkboxes = $teacher->teachersForCheckboxes();
         return view('lesson.create')->with([
+            'user'=>$user,  
+            'teacher'=>$teacher,
             'students_for_checkboxes' => $students_for_checkboxes,
+            'teachers_for_checkboxes' => $teachers_for_checkboxes,
         ]); 
     } 
 
@@ -131,7 +132,6 @@ class LessonController extends Controller
     * Page to confirm deletion
     */
     public function delete($id) {
-        dump("You found the delete endpoint for lesson id ".$id);
         $lesson = Lesson::find($id);
 
         return view('lesson.delete')->with('lesson', $lesson);
@@ -228,6 +228,7 @@ class LessonController extends Controller
         $this->validate($request, [
             'start_time' => 'required',
             'end_time' => 'required',
+            'teachers'=>'required|array|between:0,10', 
         ]);
 
         // Find 
@@ -247,6 +248,11 @@ class LessonController extends Controller
         $lesson->students()->sync($students);
         $lesson->save();
 
+        // Save associated teachers for lesson 
+        $teachers = ($request->teachers) ?: []; 
+        $lesson->teachers()->sync($teachers); 
+        $lesson->save(); 
+
         # Finish
         Session::flash('flash_message', 'You edited a lesson.');
         return redirect('/lessons/'.$id);
@@ -257,7 +263,6 @@ class LessonController extends Controller
     * Show form to edit 
     */
     public function edit($id) {
-        dump("You found the edit endpoint for lesson id ".$id);
         $user = Auth::user();
         $teacher = $user->teacher()->first();
         $lessons = $teacher->lessons()->get();
@@ -274,8 +279,6 @@ class LessonController extends Controller
             ]);
         }
 
-        
-        
         $students = $teacher->students()->get();
         $students_for_checkboxes = [];
         foreach($students as $student)
@@ -288,10 +291,16 @@ class LessonController extends Controller
         foreach($lesson_students as $lesson_student){ 
             $students_for_this_lesson[]=$lesson_student->user()->pluck('first_name')[0]; 
         } 
+
+        $teachers_for_checkboxes = $teacher->teachersForCheckboxes(); 
+        $teachers_for_this_lesson = $lesson->teacherIDsForThisLesson(); 
+        dump($teachers_for_this_lesson);
         return view('lesson.edit')->with([
             'lesson'=>$lesson,
             'students_for_this_lesson'=>$students_for_this_lesson, 
             'students_for_checkboxes'=>$students_for_checkboxes,
+            'teachers_for_this_lesson'=>$teachers_for_this_lesson, 
+            'teachers_for_checkboxes'=>$teachers_for_checkboxes,
         ]); 
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Teacher;
 
 class Lesson extends Model
 {
@@ -16,5 +17,14 @@ class Lesson extends Model
     public function teachers() { 
         return $this->belongsToMany('App\Teacher')->withTimestamps(); 
     } 
+    
     /* End Relationship Methods */
+    public function teacherIDsForThisLesson() { 
+        $teachers = $this->teachers; 
+        $ret = []; 
+        foreach($teachers as $teacher) { 
+            $ret[] = $teacher->id; 
+        } 
+        return $ret;
+    } 
 }

@@ -25,5 +25,17 @@ class Teacher extends Model
     } 
 
     /* End Relationship Methods */
+    public function teachersForCheckboxes() {
 
+        $teachers = Teacher::with('user')->get();
+        $teachers_for_checkboxes = [];
+        foreach($teachers as $teacher) {
+            $teachers_for_checkboxes[] = $teacher;
+        }
+
+        return $teachers_for_checkboxes;
+
+    }
+
+    
 }
