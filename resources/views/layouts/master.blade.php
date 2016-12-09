@@ -3,7 +3,7 @@
 <head>
     <title>
         {{-- Yield the title if it exists, otherwise default to 'Foobooks' --}}
-        @yield('title','Foobooks')
+        @yield('title','Lesson Scheduler')
     </title>
 
     <meta charset='utf-8'>
@@ -38,8 +38,10 @@
     <nav>
         <ul>
             @if(Auth::check())
-                <li><a href='/'>Home</a></li>
-                <li><a href='/books/create'>Add a book</a></li>
+                <li><a href='/'>My lessons</a></li>
+                <li><a href='/lessons/create'>Add a lesson</a></li>
+                <li><a href='/teachers'>My teachers</a></li>
+                <li><a href='/students'>My students</a></li>
                 <li><a href='/logout'>Log out</a></li>
             @else
                 <li><a href='/'>Home</a></li>
