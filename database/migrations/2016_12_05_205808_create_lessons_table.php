@@ -17,6 +17,7 @@ class CreateLessonsTable extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('title'); 
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->integer('duration')->unsigned();
