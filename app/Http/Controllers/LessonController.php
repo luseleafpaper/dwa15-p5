@@ -27,22 +27,31 @@ class LessonController extends Controller
 
         if($teacher) { 
             dump($user->first_name." is teaching the following lessons");
-            $lessons = $teacher->lessons()->get(); 
-            dump($lessons);
+            $teacher_lessons = $teacher->lessons()->with('students')->orderBy('start_time')->get(); 
+            dump($teacher_lessons);
         } else { 
             dump("Not a teacher");
+            $teacher_lessons = []; 
         }     
         
         $student = $user->student()->first();
         
         if($student) {
             dump($user->first_name." is a student in the following lessons"); 
-            $lessons = $student->lessons()->get(); 
-            dump($lessons);
+            $student_lessons = $student->lessons()->get(); 
+            dump($student_lessons);
         } else { 
             dump("Not a student");
+            $student_lessons = []; 
         }     
         
+        return view('lesson.index')->with([
+            'teacher_lessons'=>$teacher_lessons,
+            'student_lessons'=>$student_lessons,
+            'user_name'=> $user->first_name.' '.$user->last_name, 
+            'user'=> $user, 
+
+        ]); 
     } 
 
     /** 
@@ -239,8 +248,8 @@ class LessonController extends Controller
         $lesson->save();
 
         # Finish
-        Session::flash('flash_message', 'You created a lesson.');
-        return redirect('/lessons');
+        Session::flash('flash_message', 'You edited a lesson.');
+        return redirect('/lessons/'.$id);
 
     }
     /**
