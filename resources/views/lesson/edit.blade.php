@@ -14,6 +14,19 @@
 
 
         {{ csrf_field() }}
+
+        
+        <div class='form-group'>
+           <label>Lesson Description</label>
+            <input
+                type='text'
+                id='title'
+                name='titile'
+                value='{{ old('title', $lesson->title) }}'
+            >
+           <div class='error'>{{ $errors->first('title') }}</div>
+        </div>
+
         
         <div class='form-group'>
            <label>Start Time</label>
@@ -49,6 +62,7 @@
                 >
                 {{ $student_name }} <br>
             @endforeach
+            <div class='error'>{{ $errors->first('students') }}</div>
         </div>
 
 
