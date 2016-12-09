@@ -51,7 +51,23 @@
             @endforeach
         </div>
 
-        <button type="submit" class="btn btn-primary">Add book</button>
+
+
+        <div class='form-group'>
+            <label>Teachers</label>
+                @foreach( $teachers_for_checkboxes as $teacher)
+                    <input type='checkbox' value='{{ $teacher->id }}'
+                         {{ (in_array($teacher->id, $teachers_for_this_lesson)) ? 'CHECKED' : '' }}
+                         name='teachers[]'
+                    > 
+                    {{ $teacher->user->first_name }} <br>
+                @endforeach 
+            <div class='error'>{{ $errors->first('teachers') }}</div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Update Lesson</button>
 
         {{--
         <ul class=''>
