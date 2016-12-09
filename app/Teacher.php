@@ -25,6 +25,20 @@ class Teacher extends Model
     } 
 
     /* End Relationship Methods */
+
+    public function getScheduleAsStudent($student) { 
+        $lessons = $this->lessons()->orderBy('start_time')->get(); 
+
+        foreach($lessons as $lesson){ 
+            if($lesson->students->contains($student->id))
+                { $lesson->status = 'ATTENDING'; }
+            else if($lesson->students->count()==0 )
+                { $lesson->status= 'AVAILABLE'; }
+            else
+                { $lesson->status= 'BUSY'; }
+        } 
+        return $lessons; 
+    } 
     public function teachersForCheckboxes() {
 
         $teachers = Teacher::with('user')->get();
@@ -32,7 +46,6 @@ class Teacher extends Model
         foreach($teachers as $teacher) {
             $teachers_for_checkboxes[] = $teacher;
         }
-
         return $teachers_for_checkboxes;
 
     }
