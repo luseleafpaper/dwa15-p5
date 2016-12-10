@@ -55,6 +55,7 @@ class LessonController extends Controller
         // Validate 
         $this->validate($request, [
             'start_time' => 'required', 
+            'title' => 'required',
             'end_time' => 'required', 
         ]); 
 
@@ -228,6 +229,7 @@ class LessonController extends Controller
         $this->validate($request, [
             'start_time' => 'required',
             'end_time' => 'required',
+            'title' => 'required',
             'teachers'=>'required|array|between:0,10', 
         ]);
 
@@ -237,6 +239,7 @@ class LessonController extends Controller
         // Assign all attributes of the lesson from the form elements 
         $start_time = $request->input('start_time');
         $end_time = $request->input('end_time');
+        $lesson->title = request->input('title');
         $lesson->start_time = $start_time;
         $lesson->end_time = $end_time;
         $lesson->duration = (int)((strtotime($end_time)-strtotime($start_time))/60);

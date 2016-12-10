@@ -21,7 +21,7 @@
             <input
                 type='text'
                 id='title'
-                name='titile'
+                name='title'
                 value='{{ old('title', $lesson->title) }}'
             >
            <div class='error'>{{ $errors->first('title') }}</div>
