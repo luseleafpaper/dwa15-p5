@@ -22,19 +22,22 @@ class TeacherController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        dump("Lesson index: user and teacher info");
-        dump($user); 
-        $teacher = $user->teacher()->first();
+        $student = $user->student()->first(); 
+        $teacher = $user->teacher()->first(); 
 
-        if($teacher) {
-            dump($user->first_name." is a teacher");
-            dump($teacher->toArray() );
-            dump("... who teaches...");
-            $students = $teacher->students()->get();
-            dump($students);
-        } else {
-            dump("Not a teacher");
-        }
+        if($teacher) { 
+            $teachers = $teacher->getAllTeachers();
+            return view('teacher.index')->with([
+                'teachers' => $teachers,
+            ]); 
+        } 
+        
+        if($student) { 
+            $teachers = $user->student()->first()->teachers()->with('user')->get();
+            return view('teacher.index')->with([
+                'teachers' => $teachers,
+            ]); 
+        } 
 
     }
     
@@ -43,20 +46,33 @@ class TeacherController extends Controller
         // try to see if user is student
         $user = Auth::user(); 
         $student = $user->student()->first(); 
-        if($student) { 
-            $teachers = $student->teachers()->get(); 
-            if($teachers->contains($teacher->id)){ 
-                dump("This student found the right teacher"); 
+        $user_teacher = $user->teacher()->first(); 
+        
+        if($user_teacher) { 
+            if($user_teacher->id==$id) { 
+                dump("GOOD");
+                Session::flash('flash_message', 'You are trying to view your own schedule');
+                return redirect('/lessons'); 
             } 
-            else {dump("Teacher was not paired with this student"); }
         } 
-        // else if student is paired with teacher. if not, abort 
-        $schedule = $teacher->getScheduleAsStudent($student);  
+        // If student, check if this teacher is yours then show schedule 
+        if($student)  { 
+            $myteachers = $student->teachers()->get(); 
 
-        return view('teacher.show')->with([
-            'schedule'=>$schedule,
-            'teacher_user'=>$teacher->user
-        ]);
+            if(!$myteachers->contains($teacher->id)){ 
+                Session::flash('flash_message', 'You are not '.$teacher->user->first_name."'s student.");
+                return redirect('/lessons');
+            } 
+
+            // else if student is paired with teacher. if not, abort 
+            $schedule = $teacher->getScheduleAsStudent($student);  
+
+            return view('teacher.show')->with([
+                'schedule'=>$schedule,
+                'teacher_user'=>$teacher->user
+            ]);
+        } 
+        dump("end");
+        // shouldn't get here. Neither teacher nor student! 
     } 
-
 }
