@@ -25,7 +25,18 @@ class Teacher extends Model
     } 
 
     /* End Relationship Methods */
+    public function getScheduleAsTeacher($teacher) { 
+        $lessons = $this->lessons()->orderBy('start_time')->get(); 
 
+        foreach($lessons as $lesson){ 
+            if($lesson->students->count()==0 )
+                { $lesson->status= 'AVAILABLE'; }
+            else
+                { $lesson->status= 'BUSY'; }
+        } 
+        return $lessons; 
+    } 
+ 
     public function getScheduleAsStudent($student) { 
         $lessons = $this->lessons()->orderBy('start_time')->get(); 
 
@@ -39,6 +50,13 @@ class Teacher extends Model
         } 
         return $lessons; 
     } 
+
+    public function getAllStudents() { 
+        return Student::with('user')->get(); 
+    } 
+    public function getMyStudents() { 
+        return $this->students()->with('user')->get(); 
+    }
     
     public function getAllTeachers() { 
         return Teacher::with('user')->get(); 
