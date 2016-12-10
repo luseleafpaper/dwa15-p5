@@ -20,21 +20,28 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        dump("Lesson index: user and student info");
-
-        dump($user); 
         $student = $user->student()->first();
+        $teacher = $user->teacher()->first();
 
-        if($student) {
-            dump($user->first_name." is a student");
-            dump($student->toArray() );
-            dump("... who studies with...");
-            $teachers = $student->teachers()->get();
-            dump($teachers);
-        } 
-        else {
-            dump($user->first_name." is not a student");
+        if($teacher) {
+            $students = $teacher->getAllStudents();
+            $my_students = $teacher->getMyStudents(); 
+            
+            foreach($students as $student) { 
+                if($my_students->contains($student)) {
+                    $student->status = '(my student)' ;
+                }
+            }
         }
+
+        else if($student) {
+            $students = $user->student()->first()->teachers()->with('user')->get();
+        }
+
+        return view('student.index')->with([
+            'user'=>$user,
+            'students' => $students,
+        ]);
 
     }
 

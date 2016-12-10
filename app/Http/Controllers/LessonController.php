@@ -186,7 +186,7 @@ class LessonController extends Controller
         } 
         if(!$lessons->contains($lesson)) { 
             return view('help')->with([
-                'message' => 'Sorry, you do not have access to lesson id '.$id,
+                'message' => 'Sorry, you must be a teacher for lesson '.$id.' to view its details',
             ]);
         } 
 

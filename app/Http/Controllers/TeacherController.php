@@ -27,17 +27,16 @@ class TeacherController extends Controller
 
         if($teacher) { 
             $teachers = $teacher->getAllTeachers();
-            return view('teacher.index')->with([
-                'teachers' => $teachers,
-            ]); 
         } 
         
-        if($student) { 
+        else if($student) { 
             $teachers = $user->student()->first()->teachers()->with('user')->get();
-            return view('teacher.index')->with([
-                'teachers' => $teachers,
-            ]); 
         } 
+
+        return view('teacher.index')->with([
+            'user'=>$user, 
+            'teachers' => $teachers,
+        ]); 
 
     }
     
@@ -50,9 +49,12 @@ class TeacherController extends Controller
         
         if($user_teacher) { 
             if($user_teacher->id==$id) { 
-                dump("GOOD");
                 Session::flash('flash_message', 'You are trying to view your own schedule');
                 return redirect('/lessons'); 
+            } 
+            else 
+            {
+                $schedule = $teacher->getScheduleAsTeacher($user_teacher); 
             } 
         } 
         // If student, check if this teacher is yours then show schedule 
@@ -64,14 +66,14 @@ class TeacherController extends Controller
                 return redirect('/lessons');
             } 
 
-            // else if student is paired with teacher. if not, abort 
             $schedule = $teacher->getScheduleAsStudent($student);  
 
-            return view('teacher.show')->with([
-                'schedule'=>$schedule,
-                'teacher_user'=>$teacher->user
-            ]);
         } 
+
+        return view('teacher.show')->with([
+            'schedule'=>$schedule,
+            'teacher_user'=>$teacher->user
+        ]);
         dump("end");
         // shouldn't get here. Neither teacher nor student! 
     } 
