@@ -297,7 +297,7 @@ class LessonController extends Controller
 
         $teachers_for_checkboxes = $teacher->teachersForCheckboxes(); 
         $teachers_for_this_lesson = $lesson->teacherIDsForThisLesson(); 
-        //dump($teachers_for_this_lesson);
+
         return view('lesson.edit')->with([
             'lesson'=>$lesson,
             'students_for_this_lesson'=>$students_for_this_lesson, 
