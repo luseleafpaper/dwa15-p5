@@ -33,6 +33,7 @@
                         and {{sizeof($lesson->teachers)}} teachers
                     @endif
                     <br>
+                    ID: {{$lesson->id}}<br>
 
                     <a class='button' href='/lessons/{{ $lesson->id }}/edit'><i class='fa fa-pencil'></i> Edit</a>
                     <a class='button' href='/lessons/{{ $lesson->id }}'><i class='fa fa-eye'></i> View</a>
@@ -61,6 +62,7 @@
                         with {{sizeof($lesson->students)}} students
                     @endif
                     <br>
+                    ID: {{$lesson->id}}<br>
 
                     <a class='button' href='/lessons/{{ $lesson->id }}/edit'><i class='fa fa-pencil'></i> Edit</a>
                     <a class='button' href='/lessons/{{ $lesson->id }}'><i class='fa fa-eye'></i> View</a>

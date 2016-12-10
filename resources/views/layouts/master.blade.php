@@ -38,10 +38,11 @@
     <nav>
         <ul>
             @if(Auth::check())
+                <li>{{Auth::user()->first_name}}'s dashboard</li>
                 <li><a href='/'>My lessons</a></li>
                 <li><a href='/lessons/create'>Add a lesson</a></li>
-                <li><a href='/teachers'>My teachers</a></li>
-                <li><a href='/students'>My students</a></li>
+                <li><a href='/teachers'>View teachers</a></li>
+                <li><a href='/students'>View students</a></li>
                 <li><a href='/logout'>Log out</a></li>
             @else
                 <li><a href='/'>Home</a></li>

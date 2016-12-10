@@ -13,7 +13,8 @@
     <h1 class='truncate'>{{$lesson->title}}</h1>
     {{$lesson->duration}} minutes <br>
     Start time: {{$lesson->start_time}}<br>
-    End time: {{$lesson->end_time}}
+    End time: {{$lesson->end_time}}<br>
+    ID: {{$lesson->id}}<br>
     <h2 class='truncate'>Teachers</h2>
         @foreach($teachers as $teacher)
             {{ $teacher }}<br>
