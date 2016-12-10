@@ -39,6 +39,10 @@ class Teacher extends Model
         } 
         return $lessons; 
     } 
+    
+    public function getAllTeachers() { 
+        return Teacher::with('user')->get(); 
+    } 
     public function teachersForCheckboxes() {
 
         $teachers = Teacher::with('user')->get();
