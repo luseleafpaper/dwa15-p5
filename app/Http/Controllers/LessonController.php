@@ -239,7 +239,7 @@ class LessonController extends Controller
         // Assign all attributes of the lesson from the form elements 
         $start_time = $request->input('start_time');
         $end_time = $request->input('end_time');
-        $lesson->title = request->input('title');
+        $lesson->title = $request->input('title');
         $lesson->start_time = $start_time;
         $lesson->end_time = $end_time;
         $lesson->duration = (int)((strtotime($end_time)-strtotime($start_time))/60);
