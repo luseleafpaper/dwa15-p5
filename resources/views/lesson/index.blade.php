@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-    <h1> Lesson information for {{$user->first_name}} {{$user->last_name}} </h1>
     <h1>Lessons you are teaching</h1>
 
     @if(sizeof($teacher_lessons) == 0)

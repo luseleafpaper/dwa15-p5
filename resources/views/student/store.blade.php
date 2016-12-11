@@ -7,7 +7,7 @@
 
 
 @section('content')
-    Success! The book {{ $title }} was added.
+    Success! The lesson {{ $title }} was added.
 
-    <a href='/books/create'>Add another one...</a>
+    <a href='/lessons/create'>Add another one...</a>
 @stop

@@ -28,17 +28,13 @@
 
     <header>
         <a href='/'>
-            <img
-            src='http://making-the-internet.s3.amazonaws.com/laravel-foobooks-logo@2x.png'
-            alt='Foobooks Logo'
-            class='logo'>
+            {{Auth::user()->first_name}}'s dashboard
         </a>
     </header>
 
     <nav>
         <ul>
             @if(Auth::check())
-                <li>{{Auth::user()->first_name}}'s dashboard</li>
                 <li><a href='/'>My lessons</a></li>
                 <li><a href='/lessons/create'>Add a lesson</a></li>
                 <li><a href='/teachers'>View teachers</a></li>
