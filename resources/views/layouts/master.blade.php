@@ -28,7 +28,11 @@
 
     <header>
         <a href='/'>
+            @if(Auth::check())
             {{Auth::user()->first_name}}'s dashboard
+            @else
+            Hello Guest
+            @endif 
         </a>
     </header>
 

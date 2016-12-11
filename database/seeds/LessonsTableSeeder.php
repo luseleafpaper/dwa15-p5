@@ -14,9 +14,10 @@ class LessonsTableSeeder extends Seeder
     {
         // Create a couple lessons 
         $lessons = [
-            ['Lesson with Jamal and Jill', '2016-12-08 11:00', '2016-12-08 12:00', 60],
-            ['Available lesson', '2016-12-08 12:00', '2016-12-08 13:00', 60],
-            ['Lesson with Jamal', '2016-12-09 11:00', '2016-12-09 12:00', 60],
+            ['Lesson with Jamal and Jill', '2016-12-18 11:00', '2016-12-18 12:00', 60],
+            ['Lesson with Jamal taught by Lu and Jill', '2016-12-09 11:00', '2016-12-09 12:00', 60],
+            ['Available lesson taught by Lu', '2016-12-18 12:00', '2016-12-18 13:00', 60],
+            ['Available lesson taught by Jill', '2016-12-15 12:00', '2016-12-15 13:00', 60],
         ];
         
         foreach($lessons as $lesson) { 

@@ -16,7 +16,7 @@ class LessonTeacherTableSeeder extends Seeder
         //
         $teacherLessons = [
             '2' => ['1', '2', '3'], // Lu is teaching at all three lessons 
-            '1' => ['2'], // Jill is sharing teaching lesson 2
+            '1' => ['2', '4'], // Jill is sharing teaching lesson 2
         ]; 
 
         foreach($teacherLessons as $teacherId=> $lessonIds) { 
