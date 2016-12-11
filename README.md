@@ -6,11 +6,12 @@ Welcome! For my final project, I've decided to take some of the stress out of sc
 Therefore, my goal is to create a scheduler that will allow instructors to 
 * schedule lessons with **their** students (Yes, a lesson can have more than one student!) 
 * schedule lessons with other instructors (the default lesson is taught by the teacher who is logged in, but sometimes one teacher is not enough!) 
-* review, edit and delete lessons 
+* review lesson details, including the entire lesson attendee list
+* edit and delete lessons 
 * create lessons without any students which become **available** lesson times for all **their** students to see 
 
 Students will be able to: 
-* see the details for lessons that they are in
+* see their lessons in their lesson homepage without seeing the lesson details (which may have information for other students)
 * see when **their** instructors are busy with other students without seeing any lesson details so that 1. they don't request alternative lesson times when the instructor is busy and 2. other student's privacy is protected. 
 
 ## User roles for the demo 
@@ -57,9 +58,13 @@ Teacher -> User is a one to one relationship, as is Student -> User.
 
 To perform all CRUD operations on a lesson, login as Jill. Then, navigate to the following routes: 
 * Create [/lessons/create](http://p4.luseleafpaper.com/lessons/create)
-* Read [/lessons/{lesson_id}](http://p4.luseleafpaper.com/lessons/{lesson_id})
-* Update [/lessons/{lesson_id}/edit](http://p4.luseleafpaper.com/lessons/{lesson_id}/edit)
-* Delete [/lessons/{lesson_id}/delete](http://p4.luseleafpaper.com/lessons/{lesson_id}/delete)
+* Read [/lessons/{lesson_id}](http://p4.luseleafpaper.com/lessons/2)
+* Update [/lessons/{lesson_id}/edit](http://p4.luseleafpaper.com/lessons/2/edit)
+* Delete [/lessons/{lesson_id}/delete](http://p4.luseleafpaper.com/lessons/2/delete)
+
+To see a student's limited CRUD operations, login as Jamal and visit the same routes. All lesson CRUD routes should be closed to students. 
+
+However, students can perform Read operations on their teachers. So as Jamal, visit the [Teacher index page](http://p4.luseleafpaper.com/teachers) and then click on Jill and Lu's schedules. Note the lessons that he is attending vs not attending vs available lessons. 
 
 ## Server-side error validation for updating and creating Lessons 
 
