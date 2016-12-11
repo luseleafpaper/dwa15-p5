@@ -177,6 +177,11 @@ class LessonController extends Controller
     {
         $user = Auth::user();
         $teacher = $user->teacher()->first(); 
+	if(!$teacher) {
+            return view('help')->with([
+                'message' => 'Sorry, you must be a teacher to view lesson details',
+            ]);
+	} 
         $lessons = $teacher->lessons()->get(); 
         $lesson = Lesson::find($id);
         
