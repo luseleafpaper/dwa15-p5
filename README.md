@@ -2,6 +2,7 @@
 
 Welcome! For my final project, I've decided to take some of the stress out of scheduling lessons. Both my boyfriend and I are instructors in our freetime (me in math and him in dance). We frequently exchange emails with our students regarding scheduling. In particular, students want to know when the instructor is available for a lesson and confirm existing lesson times. Instructors would love to just share our google calendars with our students so that they can check for themselves, but that would cause privacy issues. 
 
+## Application goals 
 Therefore, my goal is to create a scheduler that will allow instructors to 
 * schedule lessons with **their** students (Yes, a lesson can have more than one student!) 
 * schedule lessons with other instructors (the default lesson is taught by the teacher who is logged in, but sometimes one teacher is not enough!) 
@@ -18,7 +19,7 @@ A user can be both a teacher and a student. The default user **Jill** is a teach
 
 For the scope of this project, all major CRUD operations will be done on Lessons by Teachers and Students. In the future, I would like to add an admin role that can perform CRUD operations on the Teachers and Students themselves. 
 
-## Demo 
+## Application demo 
 Screencast [video](). 
 
 ## Live Laravel application
@@ -61,3 +62,10 @@ To perform all CRUD operations on a lesson, login as Jill. Then, navigate to the
 * Delete [/lessons/{lesson_id}/delete](http://p4.luseleafpaper.com/lessons/{lesson_id}/delete)
 
 ## Server-side error validation for updating and creating Lessons 
+
+Creating lessons: a description, and start and end times are required (lesson duration is calculated using these fields). The student list must be between 0 and 100 students. The teacher list must be between 1 and 10, meaning there must be at least one teacher. 
+
+Updating lessons: same as above. 
+
+When you create or update a lesson, it's possible to create a lesson with another teacher as the only teacher. So teachers can schedule lessons for each other. 
+
