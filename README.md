@@ -12,36 +12,17 @@ Students will be able to:
 * see the details for lessons that they are in
 * see when **their** instructors are busy with other students without seeing any lesson details so that 1. they don't request alternative lesson times when the instructor is busy and 2. other student's privacy is protected. 
 
-For the scope of this project, all major CRUD operations will be done on Lessons by Teachers and Students. In the future, I would like to add an admin role that can perform CRUD operations on the Teachers and Students themselves. 
+## User roles for the demo 
 
-A user can be both a teacher and a student. The default user Jil is a teacher to Jamal. Jill is also a student to Lu. At the moment, an admin role is necessary to link students with teachers. 
+A user can be both a teacher and a student. The default user **Jill** is a teacher to **Jamal**. Jill is also a student to Lu. At the moment, an admin role is necessary to create and link students and teachers. 
+
+For the scope of this project, all major CRUD operations will be done on Lessons by Teachers and Students. In the future, I would like to add an admin role that can perform CRUD operations on the Teachers and Students themselves. 
 
 ## Demo 
 Screencast [video](). 
 
 ## Live Laravel application
 Live site is here: [p4.luseleafpaper.com](http://p4.luseleafpaper.com/)
-
-### Controllers 
-I have two controllers: 
-* UsergenController - inspects the request object and appends the appropriate number of random users to the view, as well as passing parameters to turn on birthday and profile display.  
-* IpsumController - inspects the request object and appends the appropriate number of lorem ipsum paragraphs to the view
-
-Both Controllers implement form validation  
-https://github.com/luseleafpaper/ipsum/blob/master/app/Http/Controllers/IpsumController.php#L20  
-https://github.com/luseleafpaper/ipsum/blob/master/app/Http/Controllers/UsergenController.php#L23  
-
-## Routing basics.
-There are three routes in this application: 
-* home / 
-* Lorem Ipsum generator /ipsum 
-* User Generator /usergen 
-
-### Views
-Views include: 
-* master layout which uses Bootstrap to improve my navigation bar. 
-* ipsum blade template which loops through an array of content received from the controller and prints out paragraphs separated by new lines 
-* usergen blade template which loops through an array of content received from the controller, checks if the birthday and profile tags are turned on, and prints the appropriate content 
 
 ## Database structure and Models 
 Uses a database with at least 2 tables. This count does not include a users table, but does include pivot tables.
@@ -50,9 +31,3 @@ Uses a database with at least 2 tables. This count does not include a users tabl
 Demonstrates all 4 CRUD interactions (user signup/login does not count towards this).
 
 ## Server-side error validation for updating and creating Lessons 
-
-## Creating a new Laravel application
-Since I develop on a linux machine, creating a new Laravel project used a blend of the instructions for mac and digitalocean setup. 
-
-
-
