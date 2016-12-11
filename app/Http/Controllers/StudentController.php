@@ -33,6 +33,11 @@ class StudentController extends Controller
                 }
             }
         }
+        else { 
+             return view('help')->with([
+                'message' => 'Sorry, you must be a teacher to view student infroamtion',
+            ]);
+        } 
 
         else if($student) {
             $students = $user->student()->first()->teachers()->with('user')->get();
