@@ -56,15 +56,15 @@ Teacher -> User is a one to one relationship, as is Student -> User.
 
 ## CRUD operations on Lessons 
 
-To perform all CRUD operations on a lesson, login as Jill. Then, navigate to the following routes: 
+To perform all CRUD operations on a lesson, login as Jill, a teacher to Jamal and a student to Lu. Then, navigate to the following routes: 
 * Create [/lessons/create](http://p4.luseleafpaper.com/lessons/create)
 * Read [/lessons/{lesson_id}](http://p4.luseleafpaper.com/lessons/2)
 * Update [/lessons/{lesson_id}/edit](http://p4.luseleafpaper.com/lessons/2/edit)
 * Delete [/lessons/{lesson_id}/delete](http://p4.luseleafpaper.com/lessons/2/delete)
 
-To see a student's limited CRUD operations, login as Jamal and visit the same routes. All lesson CRUD routes should be closed to students. 
+To see a student's limited CRUD operations, login as Jamal who is a student only and visit the same routes. All lesson CRUD routes should be closed to students. 
 
-However, students can perform Read operations on their teachers. So as either Jill or Jamal, visit the [Teacher index page](http://p4.luseleafpaper.com/teachers) and then click on a teacher's schedules. Note the lessons that you are attending vs not attending vs available lessons. If a teachers click on their own teaching schedule, they will be redirected back to your lesson page with a flash message. 
+However, students can perform Read operations on their teachers. So as either Jill or Jamal, visit the [Teacher index page](http://p4.luseleafpaper.com/teachers) and then click on a teacher's schedules. Note the lessons that you are attending vs not attending vs available lessons. If teachers click on their own teaching schedule, they will be redirected back to their lesson page with a flash message. 
 
 ## Server-side error validation for updating and creating Lessons 
 
