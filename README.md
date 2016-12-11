@@ -64,7 +64,7 @@ To perform all CRUD operations on a lesson, login as Jill. Then, navigate to the
 
 To see a student's limited CRUD operations, login as Jamal and visit the same routes. All lesson CRUD routes should be closed to students. 
 
-However, students can perform Read operations on their teachers. So as Jamal, visit the [Teacher index page](http://p4.luseleafpaper.com/teachers) and then click on Jill and Lu's schedules. Note the lessons that he is attending vs not attending vs available lessons. 
+However, students can perform Read operations on their teachers. So as either Jill or Jamal, visit the [Teacher index page](http://p4.luseleafpaper.com/teachers) and then click on a teacher's schedules. Note the lessons that you are attending vs not attending vs available lessons. If a teachers click on their own teaching schedule, they will be redirected back to your lesson page with a flash message. 
 
 ## Server-side error validation for updating and creating Lessons 
 
