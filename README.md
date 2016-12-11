@@ -74,3 +74,6 @@ Updating lessons: same as above.
 
 When you create or update a lesson, it's possible to select another teacher as the only teacher. So teachers can schedule lessons for each other. 
 
+## External code
+
+For this project, I used the foobooks project from class as a starting point. As it stands, I am still using the css from foobooks as well as the default Laravel User and Auth resources. 
