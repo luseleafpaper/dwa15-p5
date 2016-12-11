@@ -63,9 +63,9 @@ To perform all CRUD operations on a lesson, login as Jill. Then, navigate to the
 
 ## Server-side error validation for updating and creating Lessons 
 
-Creating lessons: a description, and start and end times are required (lesson duration is calculated using these fields). The student list must be between 0 and 100 students. The teacher list must be between 1 and 10, meaning there must be at least one teacher. 
+Creating lessons: a description, and start and end times are required (lesson duration is calculated using these fields). The teacher list must be between 1 and 10, meaning there must be at least one teacher. There are no such restraints on the student list because it's possible to create a lesson without students. 
 
 Updating lessons: same as above. 
 
-When you create or update a lesson, it's possible to create a lesson with another teacher as the only teacher. So teachers can schedule lessons for each other. 
+When you create or update a lesson, it's possible to select another teacher as the only teacher. So teachers can schedule lessons for each other. 
 
