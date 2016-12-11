@@ -32,20 +32,16 @@ class StudentController extends Controller
                     $student->status = '(my student)' ;
                 }
             }
+
+            return view('student.index')->with([
+            'user'=>$user,
+            'students' => $students,
+            ]);
         }
-        else if (!$teacher) { 
+        else { 
              return view('help')->with([
-                'message' => 'Sorry, you must be a teacher to view student infroamtion',
+                'message' => 'Sorry, you must be a teacher to view student information',
             ]);
         } 
-
-	else { 
-	    return view('student.index')->with([
-		'user'=>$user,
-		'students' => $students,
-	    ]);
-	} 
-
-    }
-
+    } 
 }
