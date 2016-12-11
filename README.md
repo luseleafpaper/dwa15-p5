@@ -27,7 +27,37 @@ Live site is here: [p4.luseleafpaper.com](http://p4.luseleafpaper.com/)
 ## Database structure and Models 
 Uses a database with at least 2 tables. This count does not include a users table, but does include pivot tables.
 
+There are three Model classes: 
+* Lessons   
+  * the primary focus of this project's CRUD operations
+  * has at least one teacher 
+  * has zero or more students 
+* Teachers 
+  * has zero or more lessons 
+  * has zero or more students 
+  * has one user 
+* Students 
+  * has zero or more lessons 
+  * has zero or more teachers 
+  * has one user 
+* User 
+  * may be a student 
+  * may be a teacher 
+  * eventually, may be an admin! 
+
+Here is a list of the many to many relationships in this application. Therefore, there is a pivot table for each relationship.
+* Lesson and Teacher
+* Lesson and Student
+* Student and Teacher 
+
+Teacher -> User is a one to one relationship, as is Student -> User. 
+
 ## CRUD operations on Lessons 
-Demonstrates all 4 CRUD interactions (user signup/login does not count towards this).
+
+To perform all CRUD operations on a lesson, login as Jill. Then, navigate to the following routes: 
+* Create [/lessons/create](http://p4.luseleafpaper.com/lessons/create)
+* Read [/lessons/{lesson_id}](http://p4.luseleafpaper.com/lessons/{lesson_id})
+* Update [/lessons/{lesson_id}/edit](http://p4.luseleafpaper.com/lessons/{lesson_id}/edit)
+* Delete [/lessons/{lesson_id}/delete](http://p4.luseleafpaper.com/lessons/{lesson_id}/delete)
 
 ## Server-side error validation for updating and creating Lessons 
