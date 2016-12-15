@@ -21,7 +21,7 @@ A user can be both a teacher and a student. The default user **Jill** is a teach
 For the scope of this project, all major CRUD operations will be done on Lessons by Teachers and Students. In the future, I would like to add an admin role that can perform CRUD operations on the Teachers and Students themselves. 
 
 ## Application demo 
-Screencast [video](). 
+Screencast [video](https://youtu.be/9-3-i6U5PYc). 
 
 ## Live Laravel application
 Live site is here: [p4.luseleafpaper.com](http://p4.luseleafpaper.com/)
