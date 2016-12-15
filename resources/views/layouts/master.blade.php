@@ -64,8 +64,8 @@
 
     <footer>
         &copy; {{ date('Y') }} &nbsp;&nbsp;
-        <a href='https://github.com/susanBuck/foobooks' target='_blank'><i class='fa fa-github'></i> View on Github</a> &nbsp;&nbsp;
-        <a href='http://foobooks.dwa15-practice.biz/' target='_blank'><i class='fa fa-link'></i> View Live</a>
+        <a href='https://github.com/luseleafpaper/dwa15-project' target='_blank'><i class='fa fa-github'></i> View on Github</a> &nbsp;&nbsp;
+        <a href='http://p4.luseleafpaper.com' target='_blank'><i class='fa fa-link'></i> View Live</a>
     </footer>
 
     {{-- Yield any page specific JS files or anything else you might want at the end of the body --}}
